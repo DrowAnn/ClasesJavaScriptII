@@ -49,7 +49,7 @@ console.log("Valor inicial clase2: " + clase2.get());
 clase2.set(8);
 console.log("Valor despues del set a clase2: " + clase2.get());*/
 
-// callbacks
+/* // callbacks
 
 function llamado(num1, num2, accion) {
   let suma = num1 + num2;
@@ -67,3 +67,39 @@ function doble(valor) {
 function cuadrado(valor) {
   console.log(valor ** 2);
 }
+
+llamado(2, 3, imprimir);
+llamado(2, 3, doble);
+llamado(2, 3, cuadrado);*/
+
+// Funciones de Orden Superior
+
+function calculadora(num1, num2, operacion) {
+  return operacion(num1, num2);
+}
+
+function suma(num1, num2) {
+  return num1 + num2;
+}
+
+function resta(num1, num2) {
+  return num1 - num2;
+}
+
+function multiplicacion(num1, num2) {
+  return num1 * num2;
+}
+
+function division(num1, num2) {
+  if (num1 / num2 == Infinity) {
+    return `Para evitar el Infinito se resuelve ${num2} / ${num1} que siempre dara como resultado 0`;
+  } else {
+    return num1 / num2;
+  }
+}
+
+console.log(calculadora(5, 4, suma));
+console.log(calculadora(6, 3, resta));
+console.log(calculadora(7, 2, multiplicacion));
+console.log(calculadora(8, 1, division));
+console.log(calculadora(9, 0, division));
