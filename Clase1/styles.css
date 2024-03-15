@@ -1,6 +1,13 @@
 * {
   margin: 10px;
+  background-color: yellow;
 }
 h1 {
-  color: blueviolet;
+  font-size: 100px;
+  color: black;
+  font-family: sans-serif;
+}
+h2 {
+  font-size: 60px;
+  margin-left: 20px;
 }
