@@ -1,13 +1,26 @@
 * {
   margin: 10px;
-  background-color: yellow;
+  background-color: #d58cfc;
 }
-h1 {
-  font-size: 100px;
+.logo {
+  border: solid;
+  border-width: 1px;
+  border-color: #f7df1e;
+  width: 125px;
+  height: 125px;
+  background-color: #f7df1e;
+}
+.logo h1 {
+  width: fit-content;
+  height: fit-content;
+  margin-left: 35px;
+  margin-top: 45px;
+  background: transparent;
+  font-size: 70px;
   color: black;
   font-family: sans-serif;
 }
 h2 {
   font-size: 60px;
-  margin-left: 20px;
+  margin-top: 20px;
 }

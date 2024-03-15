@@ -18,7 +18,7 @@ contador();
 //console.log(`${variable} ${inicio} ${adicion} ${sustraccion}`); No accede a las varibles "inicio", "adicion" y "sustraccion" dentro de la funcion contador
 console.log(`${variable}`);*/
 
-// Clousures
+/* // Clousures
 
 function getset() {
   let variable = 0;
@@ -39,6 +39,7 @@ function getset() {
 
 //console.log(`${variable}`); No accede a "variable"
 let clase1 = getset();
+console.log(clase1);
 console.log("Valor inicial clase1: " + clase1.get());
 clase1.set(5);
 console.log("Valor despues del set a clase1: " + clase1.get());
@@ -46,4 +47,23 @@ console.log("Valor despues del set a clase1: " + clase1.get());
 let clase2 = getset();
 console.log("Valor inicial clase2: " + clase2.get());
 clase2.set(8);
-console.log("Valor despues del set a clase2: " + clase2.get());
+console.log("Valor despues del set a clase2: " + clase2.get());*/
+
+// callbacks
+
+function llamado(num1, num2, accion) {
+  let suma = num1 + num2;
+  accion(suma);
+}
+
+function imprimir(valor) {
+  console.log(valor);
+}
+
+function doble(valor) {
+  console.log(valor * 2);
+}
+
+function cuadrado(valor) {
+  console.log(valor ** 2);
+}
