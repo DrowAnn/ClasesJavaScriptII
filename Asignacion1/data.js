@@ -70,41 +70,30 @@ export async function listaPokemones(numero) {
   }
 }
 
-export async function getCharacter(id) {
+export async function evolucionPokemon(id) {
   try {
     const response = await fetch(
-      `https://rickandmortyapi.com/api/character/${id}`
+      `https://pokeapi.co/api/v2/evolution-chain/${id}`
     );
     const data = await response.json();
 
-    const firstEpisodeUrl = data.episode[0];
-    const episodeResponse = await fetch(firstEpisodeUrl);
-    const episodeData = await episodeResponse.json();
+    const formaBaseName = data.chain.species.name;
+    const formaBase = await fetch(
+      `https://pokeapi.co/api/v2/pokemon/${formaBaseName}`
+    );
+    const formaBaseData = await formaBase.json();
+
+    const evolucionName = data.chain.evolves_to[0].species.name;
+    const evolucion = await fetch(
+      `https://pokeapi.co/api/v2/pokemon/${evolucionName}`
+    );
+    const evolucionData = await evolucion.json();
 
     return {
-      ...data,
-      firstEpisode: {
-        id: episodeData.id,
-        name: episodeData.name,
-        episode: episodeData.episode,
-        airDate: episodeData.air_date,
-        characters: episodeData.characters.length,
-      },
+      formaBaseData: formaBaseData,
+      evolucionData: evolucionData,
     };
   } catch (error) {
     console.error("Error al pedir los datos ", error);
-  }
-}
-
-export async function getEpisode(episodeId) {
-  try {
-    const response = await fetch(
-      `https://rickandmortyapi.com/api/episode/${episodeId}`
-    );
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error al pedir los datos del episodio ", error);
-    throw error;
   }
 }

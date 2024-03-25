@@ -1,13 +1,12 @@
 import {
-  getCharacter,
-  getEpisode,
   detallesNombre,
   habilidadesNombre,
   detallesTipo,
   listaPokemones,
+  evolucionPokemon,
 } from "./data.js";
 
-//Primeri Punto
+//Primer Punto
 //Ejercicio A
 const pikachu = await detallesNombre("pikachu");
 
@@ -38,6 +37,7 @@ const lista = await listaPokemones(50);
 console.log(lista);
 //Fin D
 
+//Segundo Punto
 const characterCardContainer = document.getElementById(
   "charactrer-card-container"
 );
@@ -46,22 +46,20 @@ const characterInput = document.getElementById("character-input");
 
 characterInput.addEventListener("change", async () => {
   const characterID = characterInput.value.trim();
-  //console.log(characterID);
+
   if (isNaN(characterID) || characterID === "") {
     renderCharacterCard(null);
-    hideEpisodeCard();
     alert("Ingrese un ID valido");
     characterInput.value = "";
     return;
   }
 
   try {
-    const characterData = await getCharacter(characterID);
+    const characterData = await evolucionPokemon(characterID);
     renderCharacterCard(characterData);
   } catch (error) {
     console.error("Error al pedir los datos ", error);
     renderCharacterCard(null);
-    hideEpisodeCard();
   }
 });
 
@@ -70,101 +68,50 @@ function renderCharacterCard(characterData) {
     characterCardContainer.innerHTML = "";
     return;
   }
-  const { name, image, species, gender, status, location, firstEpisode } =
-    characterData;
+  const formaBase = characterData.formaBaseData;
+  const evolucion = characterData.evolucionData;
 
   const characterCard = document.createElement("div");
   characterCard.classList.add("character-card");
 
-  const characterImage = document.createElement("img");
-  characterImage.src = image;
-  characterImage.alt = name;
+  const formaBaseTitulo = document.createElement("h2");
+  formaBaseTitulo.textContent = "Forma Base";
 
-  const characterName = document.createElement("h2");
-  characterName.textContent = name;
+  const formaBaseNombre = document.createElement("p");
+  formaBaseNombre.textContent = `Nombre: ${formaBase.name}`;
 
-  const characterSpecies = document.createElement("p");
-  characterSpecies.textContent = `Especie: ${species}`;
+  let formaBaseTipos = [];
+  for (let i = 0; i < formaBase.types.length; i++) {
+    formaBaseTipos[i] = formaBase.types[i].type.name;
+  }
 
-  const characterGender = document.createElement("p");
-  characterGender.textContent = `Género: ${gender}`;
+  const formaBaseTipo = document.createElement("p");
+  formaBaseTipo.textContent = `Tipo: ${formaBaseTipos}`;
 
-  const characterStatus = document.createElement("p");
-  characterStatus.textContent = `Estado: ${status}`;
+  const evolucionTitulo = document.createElement("h2");
+  evolucionTitulo.textContent = "Evolucion";
 
-  const characterLocation = document.createElement("p");
-  characterLocation.textContent = `Ubicación: ${location.name}`;
+  const evolucionNombre = document.createElement("p");
+  evolucionNombre.textContent = `Nombre: ${evolucion.name}`;
 
-  characterCard.appendChild(characterImage);
-  characterCard.appendChild(characterName);
-  characterCard.appendChild(characterSpecies);
-  characterCard.appendChild(characterGender);
-  characterCard.appendChild(characterStatus);
-  characterCard.appendChild(characterLocation);
+  let evolucionTipos = [];
+  for (let i = 0; i < formaBase.types.length; i++) {
+    evolucionTipos[i] = evolucion.types[i].type.name;
+  }
 
-  const firstEpisodeLink = document.createElement("a");
-  firstEpisodeLink.href = "#";
-  firstEpisodeLink.textContent = `${firstEpisode.name} ${firstEpisode.episode}`;
+  const evolucionTipo = document.createElement("p");
+  evolucionTipo.textContent = `Tipo: ${evolucionTipos}`;
 
-  firstEpisodeLink.addEventListener("click", async (event) => {
-    event.preventDefault();
+  characterCard.appendChild(formaBaseTitulo);
+  characterCard.appendChild(formaBaseNombre);
+  characterCard.appendChild(formaBaseTipo);
+  characterCard.appendChild(evolucionTitulo);
+  characterCard.appendChild(evolucionNombre);
+  characterCard.appendChild(evolucionTipo);
 
-    const episodeData = await getEpisode(firstEpisode.id);
-
-    if (episodeCardContainer.style.display === "none") {
-      renderEpisodeCard(episodeData);
-    } else {
-      hideEpisodeCard();
-    }
-  });
-
-  const firstEpisodeContainer = document.createElement("div");
-  firstEpisodeContainer.classList.add("episode-details");
-
-  const firstEpisodeTitle = document.createElement("h3");
-  firstEpisodeTitle.textContent = "Primer Episodio";
-
-  firstEpisodeContainer.appendChild(firstEpisodeTitle);
-  firstEpisodeContainer.appendChild(firstEpisodeLink);
-
-  characterCard.appendChild(firstEpisodeContainer);
   characterCardContainer.appendChild(characterCard);
-}
-
-function hideEpisodeCard() {
-  episodeCardContainer.innerHTML = "";
-  episodeCardContainer.style.display = "none";
-}
-
-function renderEpisodeCard(episodeData) {
-  const { name, episode, air_date, characters } = episodeData;
-
-  const episodeCard = document.createElement("div");
-  episodeCard.classList.add("episode-card");
-
-  const episodeName = document.createElement("h3");
-  episodeName.textContent = name;
-
-  const episodeNumber = document.createElement("p");
-  episodeNumber.textContent = `Episodio: ${episode}`;
-
-  const episodeAirDate = document.createElement("p");
-  episodeAirDate.textContent = `Fecha al Aire: ${air_date}`;
-
-  const episodeCharacters = document.createElement("p");
-  episodeCharacters.textContent = `Numero de personajes: ${characters.length}`;
-
-  episodeCard.appendChild(episodeName);
-  episodeCard.appendChild(episodeNumber);
-  episodeCard.appendChild(episodeAirDate);
-  episodeCard.appendChild(episodeCharacters);
-
-  episodeCardContainer.innerHTML = "";
-  episodeCardContainer.appendChild(episodeCard);
-  episodeCardContainer.style.display = "block";
 }
 
 characterInput.addEventListener("input", () => {
   renderCharacterCard(null);
-  hideEpisodeCard();
 });
