@@ -1,10 +1,3 @@
-/*
-fetch("https://rickandmortyapi.com/api/character")
-  .then((response) => response.json())
-  .then((data) => console.log(data))
-  .catch((error) => console.error(error));
-*/
-
 export async function detallesNombre(pokemon) {
   try {
     const response = await fetch(

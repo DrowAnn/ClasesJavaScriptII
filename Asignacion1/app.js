@@ -36,6 +36,7 @@ const lista = await listaPokemones(50);
 
 console.log(lista);
 //Fin D
+//Fin Primer Punto
 
 //Segundo Punto
 const characterCardContainer = document.getElementById(
@@ -121,3 +122,4 @@ function renderCharacterCard(characterData) {
 characterInput.addEventListener("input", () => {
   renderCharacterCard(null);
 });
+//Fin Segundo Punto

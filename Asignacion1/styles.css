@@ -78,16 +78,3 @@ body {
   margin: 5px 0;
   font-size: 16px;
 }
-.episode-card {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 20px;
-  text-align: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-  max-width: 300px;
-  margin: 20px auto;
-}
-.episode-card h3 {
-  margin-top: 0;
-}
