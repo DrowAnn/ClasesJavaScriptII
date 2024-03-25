@@ -83,11 +83,16 @@ export async function evolucionPokemon(id) {
     );
     const formaBaseData = await formaBase.json();
 
-    const evolucionName = data.chain.evolves_to[0].species.name;
-    const evolucion = await fetch(
-      `https://pokeapi.co/api/v2/pokemon/${evolucionName}`
-    );
-    const evolucionData = await evolucion.json();
+    let evolucionData = "";
+    if (!data.chain.evolves_to[0]) {
+      evolucionData = null;
+    } else {
+      const evolucionName = data.chain.evolves_to[0].species.name;
+      const evolucion = await fetch(
+        `https://pokeapi.co/api/v2/pokemon/${evolucionName}`
+      );
+      evolucionData = await evolucion.json();
+    }
 
     return {
       formaBaseData: formaBaseData,

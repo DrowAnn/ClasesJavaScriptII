@@ -92,15 +92,21 @@ function renderCharacterCard(characterData) {
   evolucionTitulo.textContent = "Evolucion";
 
   const evolucionNombre = document.createElement("p");
-  evolucionNombre.textContent = `Nombre: ${evolucion.name}`;
-
-  let evolucionTipos = [];
-  for (let i = 0; i < formaBase.types.length; i++) {
-    evolucionTipos[i] = evolucion.types[i].type.name;
-  }
-
   const evolucionTipo = document.createElement("p");
-  evolucionTipo.textContent = `Tipo: ${evolucionTipos}`;
+
+  if (evolucion === null) {
+    evolucionNombre.textContent = `No tiene evolución`;
+    evolucionTipo.textContent = "";
+  } else {
+    evolucionNombre.textContent = `Nombre: ${evolucion.name}`;
+
+    let evolucionTipos = [];
+    for (let i = 0; i < formaBase.types.length; i++) {
+      evolucionTipos[i] = evolucion.types[i].type.name;
+    }
+
+    evolucionTipo.textContent = `Tipo: ${evolucionTipos}`;
+  }
 
   characterCard.appendChild(formaBaseTitulo);
   characterCard.appendChild(formaBaseNombre);
