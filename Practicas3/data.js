@@ -40,5 +40,6 @@ export async function getEpisode(episodeId) {
     return data;
   } catch (error) {
     console.error("Error al pedir los datos del episodio ", error);
+    throw error;
   }
 }
